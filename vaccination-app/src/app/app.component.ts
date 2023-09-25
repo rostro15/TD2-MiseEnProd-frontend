@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { VaccinationCenter } from './vaccination-center';
 
 @Component({
   selector: 'app-root',
