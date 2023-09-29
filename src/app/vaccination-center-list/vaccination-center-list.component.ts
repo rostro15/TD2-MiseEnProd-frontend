@@ -15,7 +15,9 @@ export class VaccinationCenterListComponent implements OnInit {
   constructor(private service: VaccinationService) {}
 
   ngOnInit(): void {
-      this.centers = this.service.getAllVaccinationCenter();
+    this.service.getAllVaccinationCenter().subscribe(resultCenters=>{
+      this.centers = resultCenters;
+    });
   }
 
   isSpecialCenter(center: VaccinationCenter){
