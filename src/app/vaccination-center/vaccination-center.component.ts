@@ -15,9 +15,10 @@ export class VaccinationCenterComponent implements OnInit {
   @Output() deleted = new EventEmitter<VaccinationCenter>();
 
   constructor(private route: ActivatedRoute, private service: VaccinationService) {}
-
-  delete(){
+  
+  delete(id: Number){
     this.deleted.emit(this.center);
+    this.service.deleteCenter(id);
   }
 
   ngOnInit(): void {

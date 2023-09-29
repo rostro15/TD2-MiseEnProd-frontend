@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { VaccinationCenter } from './vaccination-center';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -23,6 +23,9 @@ export class VaccinationService {
     return this.httpClient.get<VaccinationCenter>("api/public/center/"+id);
   }
 
+  deleteCenter(id: Number) : Observable<HttpStatusCode> {
+    return this.httpClient.delete<HttpStatusCode>("api/public/center/"+id);
+  }
   /*
   createBooking(book: Booking): Observable<Booking>{
     return this.httpClient.post("/api/public/booking", book);

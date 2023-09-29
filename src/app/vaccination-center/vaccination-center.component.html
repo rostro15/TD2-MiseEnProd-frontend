@@ -7,7 +7,7 @@
       {{ center.city | uppercase }}
     </p>
 
-    <button class="button is-danger is-light" (click)="delete()">
+    <button class="button is-danger is-light" (click)="delete({{ center.id }})">
       Supprimer le centre
     </button>
   </div>
