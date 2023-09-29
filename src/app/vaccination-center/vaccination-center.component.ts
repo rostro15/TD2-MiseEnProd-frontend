@@ -18,7 +18,10 @@ export class VaccinationCenterComponent implements OnInit {
   
   delete(id: Number){
     this.deleted.emit(this.center);
-    this.service.deleteCenter(id);
+    console.log(id);
+    this.service.deleteCenter(id).subscribe(data=>{
+      console.log(data);
+    });;
   }
 
   ngOnInit(): void {
