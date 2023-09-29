@@ -1,10 +1,10 @@
 <div class="detail" *ngIf="center">
   <div class="box">
-    <h1 class="title is-3">Centre n°{{ center.id }} | {{ center.name }}</h1>
+    <h1 class="title is-3">Centre n°{{ center.id }} | {{ center.name | uppercase }}</h1>
 
     <p class="subtitle is-4 mt-1">
       Adresse : {{ center.address }}, {{ center.postalCode }}
-      {{ center.city }}
+      {{ center.city | uppercase }}
     </p>
 
     <button class="button is-danger is-light" (click)="delete()">
