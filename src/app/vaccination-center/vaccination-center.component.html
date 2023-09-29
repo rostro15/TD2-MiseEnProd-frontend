@@ -1,29 +1,14 @@
-<div class="box">
-  <h1 class="title is-3">Liste des centres de vaccination</h1>
-</div>
+<div class="detail" *ngIf="center">
+  <div class="box">
+    <h1 class="title is-3">Centre n°{{ center.id }} | {{ center.name }}</h1>
 
-<div class="columns is-multiline">
-  <div class="column is-half is-one-quarter-desktop">
-    <div class="card">
-      <div class="card-image">
-        <figure class="image is-4by3">
-          <img
-            src="/assets/placeholder_card.png"
-            alt="Placeholder image"
-          />
-        </figure>
-      </div>
-      <div class="card-content">
-        <p class="title is-5">Centre n°{{ center.id }} | {{ center.name }}</p>
-        <p class="subtitle is-6 mt-1">
-          Adresse : {{ center.address }}, {{ center.postalCode }}
-          {{ center.city }}
-        </p>
-      </div>  
-      <footer class="card-footer">
-        <a href="#" class="card-footer-item">Détails du centre</a>
-        <a href="#" class="card-footer-item">Rendez-vous</a>
-      </footer>
-    </div>
+    <p class="subtitle is-4 mt-1">
+      Adresse : {{ center.address }}, {{ center.postalCode }}
+      {{ center.city }}
+    </p>
+
+    <button class="button is-danger is-light" (click)="delete()">
+      Supprimer le centre
+    </button>
   </div>
 </div>
