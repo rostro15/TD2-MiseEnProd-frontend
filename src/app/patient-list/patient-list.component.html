@@ -1,1 +1,19 @@
-<p>patient-list works!</p>
+<div class="box">
+    <h1 class="title is-3">Liste des patients</h1>
+</div>
+
+<div class="columns is-multiline">
+    <div class="column is-half is-one-quarter-desktop" *ngFor="let aPatient of patients" [ngClass]="selected==aPatient ? 'selected' : ''">
+      <div class="card">
+        <div class="card-content">
+          <p class="title is-5"><a (click)="selectPatient(aPatient)">{{ aPatient.lastname }}</a></p>
+        </div>  
+        <footer class="card-footer has-background-link">
+          <a class="card-footer-item has-text-light" routerLink="/patient/detail/{{ aPatient.id }}">Détails du patient</a>
+          <a class="card-footer-item has-text-light">Prendre un rendez-vous</a>
+        </footer>
+      </div>
+    </div>
+</div>
+
+<app-patient [patient]="selected" (deleted)="onDeleted($event)"></app-patient>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { VaccinationService } from '../vaccination.service';
+import { VaccinationCenter } from '../vaccination-center';
 import { Patient } from '../patient';
-import { PatientService } from '../patient.service';
 
 @Component({
   selector: 'app-patient-list',
@@ -12,8 +13,21 @@ export class PatientListComponent {
   patients!: Patient[];
   selected?: Patient;
 
-  constructor(private patientService: PatientService) {
-    
+  constructor(private service: VaccinationService) {}
+
+  ngOnInit(): void {
+    this.service.getAllPatient().subscribe(resultPatients=>{
+      this.patients = resultPatients;
+    });
+  }
+
+  selectPatient(patient: Patient){
+    this.selected=patient;
+  }
+
+  onDeleted(patient: Patient){
+    delete this.selected;
+    this.patients.splice(this.patients.indexOf(patient), 1);
   }
 
 

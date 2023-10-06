@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { VaccinationCenter } from '../vaccination-center';
 import { VaccinationService } from '../vaccination.service';
+import { VaccinationCenter } from '../vaccination-center';
 
 @Component({
   selector: 'app-vaccination-center-list',

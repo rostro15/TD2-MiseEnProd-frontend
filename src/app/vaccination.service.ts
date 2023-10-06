@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { VaccinationCenter } from './vaccination-center';
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { VaccinationCenter } from './vaccination-center';
+import { Patient } from './patient';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,18 @@ export class VaccinationService {
 
   deleteCenter(id: Number) : Observable<HttpStatusCode> {
     return this.httpClient.delete<HttpStatusCode>("api/public/center/"+id);
+  }
+
+  getAllPatient() : Observable<Patient[]>{
+    return this.httpClient.get<Patient[]>("api/public/patients");
+  }
+
+  getPatientById(id: Number) : Observable<Patient> {
+    return this.httpClient.get<Patient>("api/public/patient/"+id);
+  }
+
+  deletePatient(id: Number) : Observable<HttpStatusCode> {
+    return this.httpClient.delete<HttpStatusCode>("api/public/patient/"+id);
   }
   /*
   createBooking(book: Booking): Observable<Booking>{
