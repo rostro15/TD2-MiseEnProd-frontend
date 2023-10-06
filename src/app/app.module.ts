@@ -5,12 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { VaccinationCenterComponent } from './vaccination-center/vaccination-center.component';
 import { VaccinationCenterListComponent } from './vaccination-center-list/vaccination-center-list.component';
+import { PatientListComponent } from './patient-list/patient-list.component';
+import { PatientComponent } from './patient/patient.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VaccinationCenterComponent,
-    VaccinationCenterListComponent
+    VaccinationCenterListComponent,
+    PatientListComponent,
+    PatientComponent
   ],
   imports: [
     BrowserModule,
