@@ -1,17 +1,17 @@
 <div class="detail" *ngIf="patient">
     <div class="box">
-      <h1 class="title is-3">Patient ID : {{ patient.id }}</h1>
-  
+        <h1 class="title is-3">Patient ID : {{ patient.id }}</h1>
+
         <p class="subtitle is-4 mt-1">
             {{ patient.lastname | uppercase }} {{ patient.firstname }}
         </p>
         <p class="subtitle is-5 mt-1">
-            {{ patient.birthdate }}
+            Date de naissance : {{ patient.birthdate | date: 'dd/MM/yyyy' }}
         </p>
-  
+
         <button class="button is-danger is-light" (click)="delete(patient.id)">
             Supprimer le patient
         </button>
     </div>
-  </div>
+</div>
   
