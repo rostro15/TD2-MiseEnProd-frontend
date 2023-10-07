@@ -7,65 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <nav class="navbar is-dark is-spaced has-shadow" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item" routerLink="/">
-        <img src="https://bulma.io/images/bulma-logo-white.png" alt="Bulma: Free, open source, and modern CSS framework based on Flexbox" width="112" height="28">
-      </a>
   
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainMenu">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-    <div id="mainMenu" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" routerLink="/centers">
-          Liste des centres
-        </a>
 
-        <a class="navbar-item" routerLink="/patients">
-          Liste des patients
-        </a>
-  
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            Nom d'utilisateur
-          </a>
-  
-          <div class="navbar-dropdown">
-            <a class="navbar-item">
-              Mon centre
-            </a>
-            <a class="navbar-item">
-              Mon planning
-            </a>
-            <hr class="navbar-divider">
-            <a class="navbar-item">
-              Paramètres
-            </a>
-          </div>
-        </div>
-      </div>
-  
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-link">
-              Créer mon compte
-            </a>
-            <a class="button is-link is-light">
-              Connexion
-            </a>
-          </div>
-        </div>
-      </div>
-  </nav>
+
 </head>
 <body>
   <div class="container is-fluid">
     <app-root></app-root>
+    <router-outlet></router-outlet>
   </div>
 </body>
 </html>

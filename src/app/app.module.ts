@@ -7,6 +7,8 @@ import { VaccinationCenterComponent } from './vaccination-center/vaccination-cen
 import { VaccinationCenterListComponent } from './vaccination-center-list/vaccination-center-list.component';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientComponent } from './patient/patient.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { PatientComponent } from './patient/patient.component';
     VaccinationCenterComponent,
     VaccinationCenterListComponent,
     PatientListComponent,
-    PatientComponent
+    PatientComponent,
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
