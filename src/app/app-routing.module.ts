@@ -4,13 +4,27 @@ import { VaccinationCenterListComponent } from './vaccination-center-list/vaccin
 import { VaccinationCenterComponent } from './vaccination-center/vaccination-center.component';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientComponent } from './patient/patient.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { BoardUserComponent } from './board-user/board-user.component';
+import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
+import { BoardAdminComponent } from './board-admin/board-admin.component';
 
 const routes: Routes = [
-  { path: "", redirectTo: "/centers", pathMatch: "full" },
   { path: "centers", component : VaccinationCenterListComponent },
   { path: "center/detail/:id", component : VaccinationCenterComponent },
   { path: "patients", component : PatientListComponent },
-  { path: "patient/detail/:id", component : PatientComponent }
+  { path: "patient/detail/:id", component : PatientComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'user', component: BoardUserComponent },
+  { path: 'mod', component: BoardModeratorComponent },
+  { path: 'admin', component: BoardAdminComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({
