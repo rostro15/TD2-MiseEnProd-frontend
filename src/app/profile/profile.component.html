@@ -1,21 +1,21 @@
-<div class="container" *ngIf="currentUser; else loggedOut">
-    <header class="jumbotron">
-      <h3>
-        <strong>{{ currentUser.username }}</strong> Profile
-      </h3>
-    </header>
-    <p>
-      <strong>Email:</strong>
-      {{ currentUser.email }}
-    </p>
-    <strong>Roles:</strong>
-    <ul>
-      <li *ngFor="let role of currentUser.roles">
-        {{ role }}
-      </li>
-    </ul>
+<div class="box">
+  <p class="title is-5"><i class="mr-2 fa-solid fa-user-gear"></i> Mon profil</p>
+</div>
+
+<div class="box content" *ngIf="currentUser; else loggedOut">
+  <p class="title is-5 is-spaced">{{ currentUser.firstName }} {{ currentUser.lastName }} - {{ currentUser.username }}
+  </p>
+  <p class="subtitle is-6">{{ currentUser.email }} | {{ currentUser.phone }}</p>
+
+  <ul>
+    <li *ngFor="let role of currentUser.roles">
+      {{ role }}
+    </li>
+  </ul>
+</div>
+
+<ng-template #loggedOut>
+  <div class="notification is-danger">
+    Veuillez vous connecter pour accéder à cette page.
   </div>
-  
-  <ng-template #loggedOut>
-    Please login.
-  </ng-template>
+</ng-template>

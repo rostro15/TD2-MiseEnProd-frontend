@@ -1,84 +1,151 @@
-<div class="col-md-12">
-    <div class="card card-container">
-      <form
-        *ngIf="!isSuccessful"
-        name="form"
-        (ngSubmit)="f.form.valid && onSubmit()"
-        #f="ngForm"
-        novalidate
-      >
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            class="form-control"
-            name="username"
-            [(ngModel)]="form.username"
-            required
-            minlength="3"
-            maxlength="20"
-            #username="ngModel"
-            [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
-          />
-          <div class="invalid-feedback" *ngIf="username.errors && f.submitted">
-            <div *ngIf="username.errors['required']">Username is required</div>
-            <div *ngIf="username.errors['minlength']">
-              Username must be at least 3 characters
-            </div>
-            <div *ngIf="username.errors['maxlength']">
-              Username must be at most 20 characters
-            </div>
+<div class="box">
+  <p class="title is-5">Formulaire de création de compte</p>
+</div>
+
+<div class="box">
+  <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+    <div class="field">
+      <div class="field-body">
+
+        <div class="field">
+          <label class="label" for="firstName">Prénom</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input" type="text" placeholder="Prénom" name="firstName" [(ngModel)]="form.firstName" required
+              minlength="3" maxlength="20" autofocus #firstName="ngModel"
+              [ngClass]="{ 'is-danger': f.submitted && firstName.errors }">
+            <span class="icon is-small is-left">
+              <i class="fa-solid fa-address-card"></i>
+            </span>
+            <span class="icon is-small is-right" *ngIf="firstName.errors && f.submitted">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
           </div>
+          <p class="help is-danger" *ngIf="firstName.errors && f.submitted">Le prénom est requis</p>
         </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            name="email"
-            [(ngModel)]="form.email"
-            required
-            email
-            #email="ngModel"
-            [ngClass]="{ 'is-invalid': f.submitted && email.errors }"
-          />
-          <div class="invalid-feedback" *ngIf="email.errors && f.submitted">
-            <div *ngIf="email.errors['required']">Email is required</div>
-            <div *ngIf="email.errors['email']">
-              Email must be a valid email address
-            </div>
+
+        <div class="field">
+          <label class="label" for="lastName">Nom de famille</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input" type="text" placeholder="Nom de famille" name="lastName" [(ngModel)]="form.lastName"
+              required minlength="3" maxlength="20" autofocus #lastName="ngModel"
+              [ngClass]="{ 'is-danger': f.submitted && lastName.errors }">
+            <span class="icon is-small is-left">
+              <i class="fa-solid fa-signature"></i>
+            </span>
+            <span class="icon is-small is-right" *ngIf="lastName.errors && f.submitted">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
           </div>
+          <p class="help is-danger" *ngIf="lastName.errors && f.submitted">Le nom de famille est requis</p>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            name="password"
-            [(ngModel)]="form.password"
-            required
-            minlength="6"
-            #password="ngModel"
-            [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
-          />
-          <div class="invalid-feedback" *ngIf="password.errors && f.submitted">
-            <div *ngIf="password.errors['required']">Password is required</div>
-            <div *ngIf="password.errors['minlength']">
-              Password must be at least 6 characters
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary btn-block">Sign Up</button>
-        </div>
-  
-        <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-          Signup failed!<br />{{ errorMessage }}
-        </div>
-      </form>
-  
-      <div class="alert alert-success" *ngIf="isSuccessful">
-        Your registration is successful!
+
       </div>
     </div>
+
+    <div class="field">
+      <label class="label" for="username">Nom d'utilisateur</label>
+      <div class="control has-icons-left has-icons-right">
+        <input class="input" type="text" placeholder="Utilisateur" name="username" [(ngModel)]="form.username" required
+          minlength="3" maxlength="20" autofocus #username="ngModel"
+          [ngClass]="{ 'is-danger': f.submitted && username.errors }">
+        <span class="icon is-small is-left">
+          <i class="fas fa-user"></i>
+        </span>
+        <span class="icon is-small is-right" *ngIf="username.errors && f.submitted">
+          <i class="fas fa-exclamation-triangle"></i>
+        </span>
+      </div>
+      <p class="help is-danger" *ngIf="username.errors && f.submitted && username.errors['required']">Le nom
+        d'utilisateur est requis</p>
+      <p class="help is-danger" *ngIf="username.errors && f.submitted && username.errors['minlength']">Le nom
+        d'utilisateur doit contenir plus de 3 caractères</p>
+      <p class="help is-danger" *ngIf="username.errors && f.submitted && username.errors['maxlength']">Le nom
+        d'utilisateur ne doit pas contenir plus de 20 caractères</p>
+    </div>
+
+    <div class="field">
+      <div class="field-body">
+
+        <div class="field">
+          <label class="label" for="email">Adresse email</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input" type="email" placeholder="Adresse email" name="email" [(ngModel)]="form.email" required
+              pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" #email="ngModel"
+              [ngClass]="{ 'is-danger': f.submitted && email.errors }">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right" *ngIf="email.errors && f.submitted">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+          </div>
+          <p class="help is-danger" *ngIf="email.errors && f.submitted && email.errors['required']">L'adresse email est
+            requise</p>
+          <p class="help is-danger" *ngIf="email.errors && f.submitted && email.errors['pattern']">L'adresse email
+            entrée
+            n'est pas valide</p>
+        </div>
+
+        <div class="field">
+          <label class="label" for="phone">Numéro de téléphone</label>
+          <div class="field has-addons">
+            <p class="control">
+              <a class="button is-static">
+                +33
+              </a>
+            </p>
+            <p class="control is-expanded">
+
+              <input class="input" type="tel" placeholder="Numéro de téléphone" name="tel" [(ngModel)]="form.phone"
+                required #phone="ngModel" [ngClass]="{ 'is-danger': f.submitted && phone.errors }" pattern="[0-9]{9}"
+                minlength="9" maxlength="9">
+
+            </p>
+          </div>
+          <p class="help" *ngIf="!f.submitted">Ne pas entrer le premier zéro</p>
+          <p class="help is-danger" *ngIf="phone.errors && f.submitted && phone.errors['required']">Le numéro de
+            téléphone est
+            requis</p>
+          <p class="help is-danger"
+            *ngIf="phone.errors && f.submitted && (phone.errors['minlength'] || phone.errors['maxlength'] || phone.errors['pattern'])">
+            Le numéro de téléphone
+            n'est pas au bon format</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="password">Mot de passe</label>
+      <div class="control has-icons-left has-icons-right">
+        <input class="input" type="password" placeholder="Mot de passe" name="password" [(ngModel)]="form.password"
+          required minlength="6" #password="ngModel" [ngClass]="{ 'is-danger': f.submitted && password.errors }">
+        <span class="icon is-small is-left">
+          <i class="fas fa-lock"></i>
+        </span>
+        <span class="icon is-small is-right" *ngIf="password.errors && f.submitted">
+          <i class="fas fa-exclamation-triangle"></i>
+        </span>
+      </div>
+      <p class="help is-danger" *ngIf="password.errors && f.submitted && password.errors['required']">Le mot de passe
+        est requis</p>
+      <p class="help is-danger" *ngIf="password.errors && f.submitted && password.errors['minlength']">Le mot de passe
+        doit contenir au minimum 6
+        caractères</p>
+    </div>
+
+    <div class="field is-grouped is-grouped-right">
+      <div class="control">
+        <button class="button is-link">Inscription</button>
+      </div>
+    </div>
+
+    <div class="notification is-danger" *ngIf="f.submitted && isSignUpFailed">Échec de l'inscription : {{ errorMessage
+      }}</div>
+  </form>
+
+  <div class="notification is-success" *ngIf="isSuccessful">
+    La création de votre compte a été effectuée avec succès.
   </div>
+</div>

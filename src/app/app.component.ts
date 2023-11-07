@@ -13,7 +13,7 @@ export class AppComponent {
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
-  showModeratorBoard = false;
+  showSuperadminBoard = false;
   username?: string;
 
   eventBusSub?: Subscription;
@@ -32,7 +32,7 @@ export class AppComponent {
       this.roles = user.roles;
 
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      this.showSuperadminBoard = this.roles.includes('ROLE_SUPERADMIN');
 
       this.username = user.username;
     }
@@ -45,16 +45,11 @@ export class AppComponent {
   logout(): void {
     this.authService.logout().subscribe({
       next: res => {
-        //console.log(res);
         this.storageService.clean();
-
         window.location.reload();
       },
       error: err => {
-        this.storageService.clean();
-
-        window.location.reload();
-        //console.dir(err);
+        console.dir(err);
       }
     });
   }
