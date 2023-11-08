@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,6 +18,8 @@ import { BoardSuperadminComponent } from './board-superadmin/board-superadmin.co
 import { BoardUserComponent } from './board-user/board-user.component';
 
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
+import * as fr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,11 @@ import { httpInterceptorProviders } from './_helpers/http.interceptor';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders, { provide: LOCALE_ID, useValue: 'fr-FR'}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor() {
+    registerLocaleData(fr.default);
+  }
+}
