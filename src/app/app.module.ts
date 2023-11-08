@@ -9,8 +9,6 @@ import { VaccinationCenterComponent } from './vaccination-center/vaccination-cen
 import { VaccinationCenterListComponent } from './vaccination-center-list/vaccination-center-list.component';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientComponent } from './patient/patient.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
@@ -28,8 +26,6 @@ import { httpInterceptorProviders } from './_helpers/http.interceptor';
     VaccinationCenterListComponent,
     PatientListComponent,
     PatientComponent,
-    NavbarComponent,
-    FooterComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,

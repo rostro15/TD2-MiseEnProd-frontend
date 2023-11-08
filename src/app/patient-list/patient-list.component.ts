@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { VaccinationService } from '../vaccination.service';
-import { VaccinationCenter } from '../vaccination-center';
 import { Patient } from '../patient';
 
 @Component({
@@ -29,7 +28,4 @@ export class PatientListComponent {
     delete this.selected;
     this.patients.splice(this.patients.indexOf(patient), 1);
   }
-
-
-
 }

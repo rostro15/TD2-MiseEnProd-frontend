@@ -14,9 +14,9 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 
 const routes: Routes = [
   { path: "centers", component : VaccinationCenterListComponent },
-  { path: "center/detail/:id", component : VaccinationCenterComponent },
+  { path: "center/:id", component : VaccinationCenterComponent },
   { path: "patients", component : PatientListComponent },
-  { path: "patient/detail/:id", component : PatientComponent },
+  { path: "patient/:id", component : PatientComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

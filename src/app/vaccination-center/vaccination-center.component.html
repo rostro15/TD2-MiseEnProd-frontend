@@ -7,8 +7,14 @@
       {{ center.city | uppercase }}
     </p>
 
-    <button class="button is-danger is-light" (click)="delete(center.id)">
-      Supprimer le centre
-    </button>
+    <div class="buttons">
+      <button class="button is-danger" (click)="delete(center.id)">
+        Supprimer le centre
+      </button>
+
+      <button class="button is-light" routerLink="/centers">
+        Retour à la liste des centres
+      </button>
+    </div>
   </div>
 </div>

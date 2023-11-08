@@ -1,17 +1,32 @@
 <div class="box">
-  <p class="title is-5"><i class="mr-2 fa-solid fa-user-gear"></i> Mon profil</p>
+  <p class="title is-5"><i class="mr-2 fa-solid fa-user-gear"></i> Mon compte</p>
 </div>
 
 <div class="box content" *ngIf="currentUser; else loggedOut">
-  <p class="title is-5 is-spaced">{{ currentUser.firstName }} {{ currentUser.lastName }} - {{ currentUser.username }}
+  <p class="title is-5">{{ currentUser.firstName }} {{ currentUser.lastName | uppercase }}
   </p>
-  <p class="subtitle is-6">{{ currentUser.email }} | {{ currentUser.phone }}</p>
 
-  <ul>
-    <li *ngFor="let role of currentUser.roles">
-      {{ role }}
-    </li>
-  </ul>
+  <div class="tags has-addons are-medium">
+    <span class="tag">Nom d'utilisateur</span>
+    <span class="tag is-link">{{ "@" + currentUser.username }}</span>
+  </div>
+
+  <div class="tags has-addons are-medium">
+    <span class="tag">Email</span>
+    <span class="tag is-info">{{ currentUser.email }}</span>
+  </div>
+
+  <div class="tags has-addons are-medium">
+    <span class="tag">Téléphone</span>
+    <span class="tag is-dark">+33</span>
+    <span class="tag is-warning">{{ currentUser.phone }}</span>
+  </div>
+
+  <div class="tags has-addons are-medium">
+    <span class="tag">Rôles</span>
+    <span *ngFor="let role of currentUser.roles" class="tag is-success">{{ role }}</span>
+  </div>
+
 </div>
 
 <ng-template #loggedOut>
