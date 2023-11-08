@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 
 @Component({
@@ -29,6 +29,7 @@ export class RegisterComponent {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        window.location.replace("/login");
       },
       error: err => {
         this.errorMessage = err.error.message;

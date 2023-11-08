@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
         this.roles = this.storageService.getUser().roles;
         this.username = this.storageService.getUser().username;
         this.reloadPage();
+        window.location.replace("/profile");
       },
       error: err => {
         this.errorMessage = err.error.message;

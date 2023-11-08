@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { BoardSuperadminComponent } from './board-superadmin.component';
 
 describe('BoardSuperadminComponent', () => {

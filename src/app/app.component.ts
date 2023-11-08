@@ -47,6 +47,7 @@ export class AppComponent {
       next: res => {
         this.storageService.clean();
         window.location.reload();
+        window.location.replace("/");
       },
       error: err => {
         console.dir(err);

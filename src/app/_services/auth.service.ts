@@ -40,6 +40,21 @@ export class AuthService {
     );
   }
 
+  edit(username: string, email: string, password: string, firstName: string, lastName: string, phone: string): Observable<any> {
+    return this.http.post(
+      AUTH_API + 'edit',
+      {
+        username,
+        email,
+        password,
+        firstName,
+        lastName,
+        phone
+      },
+      httpOptions
+    );
+  }
+
   logout(): Observable<any> {
     return this.http.get(AUTH_API + 'signout',httpOptions);
   }

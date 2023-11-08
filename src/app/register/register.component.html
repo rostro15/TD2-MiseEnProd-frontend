@@ -101,7 +101,7 @@
 
             </p>
           </div>
-          <p class="help" *ngIf="!f.submitted">Ne pas entrer le premier zéro</p>
+          <p class="help" *ngIf="!f.submitted || !phone.errors">Ne pas entrer le premier zéro</p>
           <p class="help is-danger" *ngIf="phone.errors && f.submitted && phone.errors['required']">Le numéro de
             téléphone est
             requis</p>
