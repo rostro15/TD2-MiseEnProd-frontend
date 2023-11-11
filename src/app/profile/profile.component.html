@@ -4,8 +4,10 @@
 
 <div class="box content" *ngIf="currentUser; else loggedOut">
   <p class="title is-5 is-spaced">{{ currentUser.firstName }} {{ currentUser.lastName | uppercase }}</p>
-  <p *ngIf="currentUser.createdOn">Compte créé <span class="tag">{{ currentUser.createdOn | date: 'le dd/MM/yyyy, à HH:mm:ss' }}</span></p>
-  <p *ngIf="currentUser.lastModifiedOn">Dernière modification du compte <span class="tag">{{ currentUser.lastModifiedOn | date: 'le dd/MM/yyyy, à HH:mm:ss' }}</span></p>
+  <p *ngIf="currentUser.createdOn">Compte créé <span class="tag">{{ currentUser.createdOn | date: 'le dd/MM/yyyy, à
+      HH:mm:ss' }}</span></p>
+  <p *ngIf="currentUser.lastModifiedOn">Dernière modification du compte <span class="tag">{{ currentUser.lastModifiedOn
+      | date: 'le dd/MM/yyyy, à HH:mm:ss' }}</span></p>
 
   <div class="tags has-addons are-medium pt-3">
     <span class="tag">Nom d'utilisateur</span>
@@ -42,8 +44,8 @@
         <div class="field">
           <label class="label" for="firstName">Prénom</label>
           <div class="control has-icons-left has-icons-right">
-            <input class="input" type="text" placeholder="{{ currentUser.firstName }}" name="firstName" [(ngModel)]="form.firstName"
-              minlength="3" maxlength="20" autofocus #firstName="ngModel"
+            <input class="input" type="text" placeholder="{{ currentUser.firstName }}" name="firstName"
+              [(ngModel)]="form.firstName" autofocus #firstName="ngModel"
               [ngClass]="{ 'is-danger': f.submitted && firstName.errors }">
             <span class="icon is-small is-left">
               <i class="fa-solid fa-address-card"></i>
@@ -57,8 +59,8 @@
         <div class="field">
           <label class="label" for="lastName">Nom de famille</label>
           <div class="control has-icons-left has-icons-right">
-            <input class="input" type="text" placeholder="{{ currentUser.lastName | uppercase }}" name="lastName" [(ngModel)]="form.lastName"
-              minlength="3" maxlength="20" autofocus #lastName="ngModel"
+            <input class="input" type="text" placeholder="{{ currentUser.lastName | uppercase }}" name="lastName"
+              [(ngModel)]="form.lastName" autofocus #lastName="ngModel"
               [ngClass]="{ 'is-danger': f.submitted && lastName.errors }">
             <span class="icon is-small is-left">
               <i class="fa-solid fa-signature"></i>
@@ -75,8 +77,8 @@
     <div class="field">
       <label class="label" for="username">Nom d'utilisateur</label>
       <div class="control has-icons-left has-icons-right">
-        <input class="input" type="text" placeholder="{{ currentUser.username }}" name="username"
-          minlength="3" maxlength="20" disabled>
+        <input class="input" type="text" placeholder="{{ currentUser.username }}" name="username" minlength="3"
+          maxlength="20" disabled>
         <span class="icon is-small is-left">
           <i class="fas fa-user"></i>
         </span>
@@ -94,9 +96,9 @@
         <div class="field">
           <label class="label" for="email">Adresse email</label>
           <div class="control has-icons-left has-icons-right">
-            <input class="input" type="email" placeholder="{{ currentUser.email }}" name="email" [(ngModel)]="form.email"
-              pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" #email="ngModel"
-              [ngClass]="{ 'is-danger': f.submitted && email.errors }">
+            <input class="input" type="email" placeholder="{{ currentUser.email }}" name="email"
+              [(ngModel)]="form.email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" maxlength="50"
+              #email="ngModel" [ngClass]="{ 'is-danger': f.submitted && email.errors }">
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
             </span>
@@ -107,6 +109,8 @@
           <p class="help is-danger" *ngIf="email.errors && f.submitted && email.errors['pattern']">L'adresse email
             entrée
             n'est pas valide</p>
+          <p class="help is-danger" *ngIf="email.errors && f.submitted && email.errors['maxlength']">L'adresse email ne
+            doit pas contenir plus de 50 caractères</p>
         </div>
 
         <div class="field">
@@ -136,10 +140,11 @@
     </div>
 
     <div class="field">
-      <label class="label" for="password">Mot de passe</label>
+      <label class="label" for="password">Nouveau mot de passe</label>
       <div class="control has-icons-left has-icons-right">
-        <input class="input" type="password" placeholder="Mot de passe" name="password" [(ngModel)]="form.password"
-          required minlength="6" #password="ngModel" [ngClass]="{ 'is-danger': f.submitted && password.errors }">
+        <input class="input" type="password" placeholder="Nouveau mot de passe" name="password"
+          [(ngModel)]="form.password" minlength="6" maxlength="40" #password="ngModel"
+          [ngClass]="{ 'is-danger': f.submitted && password.errors }">
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
         </span>
@@ -147,11 +152,13 @@
           <i class="fas fa-exclamation-triangle"></i>
         </span>
       </div>
-      <p class="help is-danger" *ngIf="password.errors && f.submitted && password.errors['required']">Le mot de passe
-        est requis</p>
+      <p class="help" *ngIf="!f.submitted || !password.errors">Ne pas compléter ce champ si vous ne souhaitez pas
+        modifier votre mot de passe</p>
       <p class="help is-danger" *ngIf="password.errors && f.submitted && password.errors['minlength']">Le mot de passe
         doit contenir au minimum 6
         caractères</p>
+      <p class="help is-danger" *ngIf="password.errors && f.submitted && password.errors['maxlength']">Le mot de passe
+        ne doit pas contenir plus de 40 caractères</p>
     </div>
 
     <div class="field is-grouped is-grouped-right">
@@ -160,12 +167,13 @@
       </div>
     </div>
 
-    <div class="notification is-danger" *ngIf="f.submitted && isEditProfileFailed">Échec de la modification : {{ errorMessage
+    <div class="notification is-danger" *ngIf="f.submitted && isEditProfileFailed">Échec de la modification : {{
+      errorMessage
       }}</div>
   </form>
 
   <div class="notification is-success" *ngIf="isSuccessful">
-    La modification de votre compte a été effectuée avec succès.
+    La modification de votre compte a été effectuée avec succès, déconnexion de votre compte en cours...
   </div>
 </div>
 

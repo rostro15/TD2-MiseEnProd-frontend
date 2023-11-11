@@ -14,17 +14,30 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   constructor(private storageService: StorageService, private eventBusService: EventBusService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    req = req.clone({
-      withCredentials: true,
-    });
+
+    if(this.storageService.isLoggedIn()){
+      const authToken = this.storageService.getUser().accessToken;
+
+      req = req.clone({
+        withCredentials: true,
+        setHeaders: {
+          Authorization: "Bearer " + authToken
+        }
+      });
+    } 
+
+    else {
+      req = req.clone({
+        withCredentials: true
+      });
+    }
 
     return next.handle(req).pipe(
       catchError((error) => {
-        // logout when token is expired
 
         if (
           error instanceof HttpErrorResponse &&
-          !req.url.includes('auth/signin') &&
+          !req.url.includes('/login') &&
           error.status === 401
         ) {
           return this.handle401Error(req, next);

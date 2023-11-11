@@ -9,12 +9,12 @@ import { AuthService } from '../_services/auth.service';
 export class ProfileComponent implements OnInit {
   currentUser: any;
   form: any = {
-    username: null,
-    email: null,
-    password: null,
-    firstName: null,
-    lastName: null,
-    phone: null
+    username: "",
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    phone: ""
   };
   isSuccessful = false;
   isEditProfileFailed = false;
@@ -32,9 +32,10 @@ export class ProfileComponent implements OnInit {
 
     this.authService.edit(username, email, password, firstName, lastName, phone).subscribe({
       next: data => {
-        console.log(data);
-        //this.isSuccessful = true;
-        this.isEditProfileFailed = true;
+        this.isSuccessful = true;
+        setTimeout(() => {  
+          this.logout();
+        }, 2000);
       },
       error: err => {
         this.errorMessage = err.error.message;
@@ -42,4 +43,18 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: res => {
+        this.storageService.clean();
+        window.location.reload();
+        window.location.replace("/login");
+      },
+      error: err => {
+        console.dir(err);
+      }
+    });
+  }
+  
 }

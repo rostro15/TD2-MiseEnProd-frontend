@@ -10,8 +10,7 @@
           <label class="label" for="firstName">Prénom</label>
           <div class="control has-icons-left has-icons-right">
             <input class="input" type="text" placeholder="Prénom" name="firstName" [(ngModel)]="form.firstName" required
-              minlength="3" maxlength="20" autofocus #firstName="ngModel"
-              [ngClass]="{ 'is-danger': f.submitted && firstName.errors }">
+              autofocus #firstName="ngModel" [ngClass]="{ 'is-danger': f.submitted && firstName.errors }">
             <span class="icon is-small is-left">
               <i class="fa-solid fa-address-card"></i>
             </span>
@@ -26,8 +25,7 @@
           <label class="label" for="lastName">Nom de famille</label>
           <div class="control has-icons-left has-icons-right">
             <input class="input" type="text" placeholder="Nom de famille" name="lastName" [(ngModel)]="form.lastName"
-              required minlength="3" maxlength="20" autofocus #lastName="ngModel"
-              [ngClass]="{ 'is-danger': f.submitted && lastName.errors }">
+              required autofocus #lastName="ngModel" [ngClass]="{ 'is-danger': f.submitted && lastName.errors }">
             <span class="icon is-small is-left">
               <i class="fa-solid fa-signature"></i>
             </span>
@@ -69,7 +67,7 @@
           <label class="label" for="email">Adresse email</label>
           <div class="control has-icons-left has-icons-right">
             <input class="input" type="email" placeholder="Adresse email" name="email" [(ngModel)]="form.email" required
-              pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" #email="ngModel"
+              pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" maxlength="50" #email="ngModel"
               [ngClass]="{ 'is-danger': f.submitted && email.errors }">
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
@@ -83,6 +81,8 @@
           <p class="help is-danger" *ngIf="email.errors && f.submitted && email.errors['pattern']">L'adresse email
             entrée
             n'est pas valide</p>
+          <p class="help is-danger" *ngIf="email.errors && f.submitted && email.errors['maxlength']">L'adresse email ne
+            doit pas contenir plus de 50 caractères</p>
         </div>
 
         <div class="field">
@@ -118,7 +118,8 @@
       <label class="label" for="password">Mot de passe</label>
       <div class="control has-icons-left has-icons-right">
         <input class="input" type="password" placeholder="Mot de passe" name="password" [(ngModel)]="form.password"
-          required minlength="6" #password="ngModel" [ngClass]="{ 'is-danger': f.submitted && password.errors }">
+          required minlength="6" maxlength="40" #password="ngModel"
+          [ngClass]="{ 'is-danger': f.submitted && password.errors }">
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
         </span>
@@ -131,6 +132,8 @@
       <p class="help is-danger" *ngIf="password.errors && f.submitted && password.errors['minlength']">Le mot de passe
         doit contenir au minimum 6
         caractères</p>
+      <p class="help is-danger" *ngIf="password.errors && f.submitted && password.errors['maxlength']">Le mot de passe
+        ne doit pas contenir plus de 40 caractères</p>
     </div>
 
     <div class="field is-grouped is-grouped-right">
