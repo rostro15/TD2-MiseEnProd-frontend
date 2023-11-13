@@ -1,5 +1,90 @@
-<div class="container">
-    <header class="jumbotron">
-      <p>{{ content }}</p>
-    </header>
+<div class="box">
+  <p class="title is-5">Formulaire de création d'un centre de vaccination</p>
+</div>
+
+<div class="box">
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+    <div class="field">
+      <label class="label" for="name">Nom du centre</label>
+      <div class="control has-icons-left has-icons-right">
+        <input class="input" type="text" placeholder="Nom du centre" name="name" [(ngModel)]="form.name" required
+          autofocus #name="ngModel" [ngClass]="{ 'is-danger': f.submitted && name.errors }">
+        <span class="icon is-small is-left">
+          <i class="fas fa-hospital"></i>
+        </span>
+        <span class="icon is-small is-right" *ngIf="name.errors && f.submitted">
+          <i class="fas fa-exclamation-triangle"></i>
+        </span>
+      </div>
+      <p class="help is-danger" *ngIf="name.errors && f.submitted">Le nom du centre est requis</p>
+    </div>
+
+    <div class="field">
+      <label class="label" for="address">Adresse postale</label>
+      <div class="control has-icons-left has-icons-right">
+        <input class="input" type="text" placeholder="Adresse postale" name="address" [(ngModel)]="form.address" required
+          autofocus #address="ngModel" [ngClass]="{ 'is-danger': f.submitted && address.errors }">
+        <span class="icon is-small is-left">
+          <i class="fa-solid fa-location-dot"></i>
+        </span>
+        <span class="icon is-small is-right" *ngIf="address.errors && f.submitted">
+          <i class="fas fa-exclamation-triangle"></i>
+        </span>
+      </div>
+      <p class="help is-danger" *ngIf="address.errors && f.submitted">L'adresse du centre est requise</p>
+    </div>
+
+    <div class="field">
+      <div class="field-body">
+
+        <div class="field">
+          <label class="label" for="city">Ville</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input" type="text" placeholder="Ville" name="city" [(ngModel)]="form.city" required autofocus
+              #city="ngModel" [ngClass]="{ 'is-danger': f.submitted && city.errors }">
+            <span class="icon is-small is-left">
+              <i class="fa-solid fa-map"></i>
+            </span>
+            <span class="icon is-small is-right" *ngIf="city.errors && f.submitted">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+          </div>
+          <p class="help is-danger" *ngIf="city.errors && f.submitted">La ville est requise</p>
+        </div>
+
+        <div class="field">
+          <label class="label" for="postalCode">Code postal</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input" type="text" placeholder="XXXXX ou F-XXXXX" name="postalCode" [(ngModel)]="form.postalCode"
+             pattern="(?:F-)??[0-9]{5}" maxlength="7" minlength="5" required autofocus #postalCode="ngModel" [ngClass]="{ 'is-danger': f.submitted && postalCode.errors }">
+            <span class="icon is-small is-left">
+              <i class="fa-solid fa-map-pin"></i>
+            </span>
+            <span class="icon is-small is-right" *ngIf="postalCode.errors && f.submitted">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+          </div>
+          <p class="help is-danger" *ngIf="postalCode.errors && f.submitted && postalCode.errors['required']">Le code postal est requis</p>
+          <p class="help is-danger" *ngIf="postalCode.errors && f.submitted && postalCode.errors['pattern']">Le code
+            postal
+            n'est pas valide</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="field is-grouped is-grouped-right">
+      <div class="control">
+        <button class="button is-link">Créer le centre</button>
+      </div>
+    </div>
+
+    <div class="notification is-danger" *ngIf="f.submitted && isCreationFailed">Échec de la création du centre : {{ errorMessage }}</div>
+  </form>
+
+  <div class="notification is-success" *ngIf="isCreationSuccess">
+    La création du centre a été effectuée avec succès.<br>
+    Vous pouvez consulter la liste des centres en cliquant <a href="/centers">ici</a>.
   </div>
+</div>

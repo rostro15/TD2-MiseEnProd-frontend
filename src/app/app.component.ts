@@ -10,6 +10,7 @@ import { EventBusService } from './_shared/event-bus.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  [x: string]: any;
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;

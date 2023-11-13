@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
+import { VaccinationService } from '../_services/vaccination.service';
 
+const userCountry = "FR";
 @Component({
   selector: 'app-board-superadmin',
   templateUrl: './board-superadmin.component.html',
@@ -8,8 +10,17 @@ import { UserService } from '../_services/user.service';
 })
 export class BoardSuperadminComponent implements OnInit {
   content?: string;
+  form: any = {
+    name: null,
+    address: null,
+    postalCode: null,
+    city: null
+  };
+  errorMessage = '';
+  isCreationFailed = false;
+  isCreationSuccess = false;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private vaccinationService: VaccinationService) { }
 
   ngOnInit(): void {
     this.userService.getSuperadminBoard().subscribe({
@@ -30,4 +41,25 @@ export class BoardSuperadminComponent implements OnInit {
       }
     });
   }
+
+  onSubmit(): void {
+    const { name, address, postalCode, city } = this.form;
+    
+    this.vaccinationService.createCenter(name, address, postalCode, city).subscribe({
+      next: data => {
+
+        console.dir(data);
+        this.isCreationSuccess = true;
+      },
+      error: err => {
+        this.isCreationFailed = true;
+        this.errorMessage = err.error.message;
+      }
+    });
+  }
+
+  reloadPage(): void {
+    window.location.reload();
+  }
+
 }
