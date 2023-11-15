@@ -20,11 +20,14 @@ export class ProfileComponent implements OnInit {
   isEditProfileFailed = false;
   errorMessage = '';
   hide = true;
+  isSuperAdmin = false;
 
   constructor(private authService: AuthService, private storageService: StorageService) { }
 
   ngOnInit(): void {
     this.currentUser = this.storageService.getUser();
+    this.isSuperAdmin = this.storageService.isSuperAdmin();
+    console.dir(this.currentUser)
   }
 
   onSubmit(): void {

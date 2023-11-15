@@ -81,7 +81,7 @@
     <mat-form-field>
       <mat-label>Numéro de téléphone</mat-label>
       <input matInput required name="phone" placeholder="Ex: 123456789" [(ngModel)]="form.phone" #phone="ngModel"
-        maxlength="50" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" pattern="[0-9]{9}" maxlength="9">
+        pattern="[0-9]{9}" maxlength="9">
       <span matTextPrefix>+33 &nbsp;</span>
       <mat-icon matSuffix *ngIf="phone.errors && f.submitted">warning</mat-icon>
       <mat-error *ngIf="phone.errors && phone.errors['required']">Le numéro de téléphone est requis.</mat-error>

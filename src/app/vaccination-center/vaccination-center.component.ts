@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VaccinationService } from '../_services/vaccination.service';
 import { VaccinationCenter } from '../vaccination-center';
+import { StorageService } from '../_services/storage.service';
 
 @Component({
   selector: 'app-vaccination-center',
@@ -13,8 +14,9 @@ export class VaccinationCenterComponent implements OnInit {
 
   @Input() center?: VaccinationCenter;
   @Output() deleted = new EventEmitter<VaccinationCenter>();
+  isSuperAdmin = false;
 
-  constructor(private route: ActivatedRoute, private service: VaccinationService) {}
+  constructor(private route: ActivatedRoute, private service: VaccinationService, private storageService: StorageService) {}
   
   delete(id: Number){
     this.deleted.emit(this.center);
@@ -30,6 +32,8 @@ export class VaccinationCenterComponent implements OnInit {
     this.service.getCenterById(id).subscribe(resultCenter=>{
       this.center = resultCenter;
     });
+
+    this.isSuperAdmin = this.storageService.isSuperAdmin();
   }
 
 }

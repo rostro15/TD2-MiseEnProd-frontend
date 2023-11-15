@@ -1,17 +1,15 @@
-<div class="detail" *ngIf="patient">
-    <div class="box">
-        <h1 class="title is-5">Patient ID : {{ patient.id }}</h1>
+<button class="separator" mat-raised-button color="primary" routerLink="/patients"><mat-icon>keyboard_backspace</mat-icon> Retour à la liste des patients</button>
 
-        <p class="subtitle is-5 mt-1">
-            {{ patient.lastname | uppercase }} {{ patient.firstname }}
-        </p>
-        <p class="subtitle is-5 mt-1">
-            Date de naissance : {{ patient.birthdate | date: 'dd/MM/yyyy' }}
-        </p>
-
-        <button class="button is-danger is-light" (click)="delete(patient.id)">
-            Supprimer le patient
-        </button>
-    </div>
-</div>
-  
+<mat-card class="padding" *ngIf="patient">
+  <mat-card-title>Patient n°{{ patient.id }} - {{ patient.firstname }} {{ patient.lastname | uppercase }}</mat-card-title>
+  <mat-card-subtitle>
+    Date de naissance : {{ patient.birthdate | date: 'dd/MM/yyyy' }}<br>
+    Email : {{ patient.mail }}<br>
+    Téléphone : {{ patient.phone }}<br>
+    Nombre de vaccins : {{ patient.nbVaccins }}
+  </mat-card-subtitle>
+  <mat-card-actions class="button-row">
+    <button mat-raised-button color="accent" ><mat-icon>today</mat-icon> Prendre un rendez-vous</button>
+    <button mat-raised-button color="warn" (click)="delete(patient.id)"><mat-icon>delete_forever</mat-icon> Supprimer le patient</button>
+  </mat-card-actions>
+</mat-card>

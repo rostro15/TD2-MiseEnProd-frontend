@@ -26,6 +26,57 @@ export class StorageService {
     return null;
   }
 
+  public isSuperAdmin(): any {
+
+    const user = window.localStorage.getItem(USER_KEY);
+
+    if (user) {
+      const currentUser = JSON.parse(user);
+
+      if(currentUser.roles.includes("ROLE_SUPERADMIN")){
+        return true;
+      }
+
+      return false;
+    }
+
+    return null;
+  }
+
+  public isAdmin(): any {
+
+    const user = window.localStorage.getItem(USER_KEY);
+
+    if (user) {
+      const currentUser = JSON.parse(user);
+
+      if(currentUser.roles.includes("ROLE_ADMIN")){
+        return true;
+      }
+
+      return false;
+    }
+
+    return null;
+  }
+
+  public isDoctor(): any {
+
+    const user = window.localStorage.getItem(USER_KEY);
+
+    if (user) {
+      const currentUser = JSON.parse(user);
+
+      if(currentUser.roles.includes("ROLE_DOCTOR")){
+        return true;
+      }
+
+      return false;
+    }
+
+    return null;
+  }
+
   public isLoggedIn(): boolean {
     const user = window.localStorage.getItem(USER_KEY);
     if (user) {

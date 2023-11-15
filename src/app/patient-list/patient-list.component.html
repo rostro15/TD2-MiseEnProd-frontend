@@ -1,19 +1,51 @@
-<div class="box">
-    <p class="title is-5"><i class="mr-2 fa-solid fa-hospital-user"></i> Liste des patients</p>
-</div>
+<mat-card class="padding separator">
+  <mat-card-title class="separator-d">Liste des patients</mat-card-title>
+</mat-card>
 
-<div class="columns is-multiline">
-    <div class="column is-half is-one-quarter-desktop" *ngFor="let aPatient of patients" [ngClass]="selected==aPatient ? 'selected' : ''">
-      <div class="card">
-        <div class="card-content">
-          <p class="title is-5"><a (click)="selectPatient(aPatient)">{{ aPatient.lastname }}</a></p>
-        </div>  
-        <footer class="card-footer has-background-link">
-          <a class="card-footer-item has-text-light" routerLink="/patient/detail/{{ aPatient.id }}">Détails du patient</a>
-          <a class="card-footer-item has-text-light">Prendre un rendez-vous</a>
-        </footer>
-      </div>
-    </div>
-</div>
+<mat-form-field>
+  <mat-label>Filtrer</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Michel DUPOND" #input>
+</mat-form-field>
 
-<app-patient [patient]="selected" (deleted)="onDeleted($event)"></app-patient>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> Id. </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="firstname">
+    <th mat-header-cell *matHeaderCellDef> Prénom du patient </th>
+    <td mat-cell *matCellDef="let element"> 
+      <button color="primary" mat-raised-button routerLink="/patient/{{ element.id }}">{{element.firstname}}</button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastname">
+    <th mat-header-cell *matHeaderCellDef> Nom du patient </th>
+    <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="nbVaccin">
+    <th mat-header-cell *matHeaderCellDef> Nombre de vaccins </th>
+    <td mat-cell *matCellDef="let element"> {{element.nbVaccin}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let element">
+      <button color="accent" mat-raised-button><mat-icon>today</mat-icon> Prendre un rendez-vous</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">
+      <a mat-button class="margin">
+        Aucun patient trouvé en appliquant le filtre "{{ input.value }}"
+      </a>
+    </td>
+  </tr>
+</table>

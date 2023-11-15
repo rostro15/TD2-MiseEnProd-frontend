@@ -8,6 +8,6 @@
   </mat-card-subtitle>
   <mat-card-actions class="button-row">
     <button mat-raised-button color="accent" ><mat-icon>today</mat-icon> Prendre un rendez-vous</button>
-    <button mat-raised-button color="warn" (click)="delete(center.id)"><mat-icon>delete_forever</mat-icon> Supprimer le centre</button>
+    <button mat-raised-button color="warn" (click)="delete(center.id)" *ngIf="isSuperAdmin"><mat-icon>delete_forever</mat-icon> Supprimer le centre</button>
   </mat-card-actions>
 </mat-card>
