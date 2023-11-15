@@ -8,16 +8,17 @@ import { AuthService } from '../_services/auth.service';
 })
 export class RegisterComponent {
   form: any = {
-    username: null,
-    email: null,
-    password: null,
-    firstName: null,
-    lastName: null,
-    phone: null
+    username: "",
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    phone: ""
   };
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
+  hide = true;
 
   constructor(private authService: AuthService) { }
 

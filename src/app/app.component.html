@@ -1,40 +1,58 @@
-<div id="app">
-  <nav class="navbar is-dark is-spaced is-fixed-top has-shadow" role="navigation" aria-label="main navigation">
-    <div class="navbar-menu" routerLinkActive="active">
-      <div class="navbar-start">
-        <a class="button is-primary mr-2" routerLink="home">
-          <i class="mr-2 fa-solid fa-house-chimney"></i> Accueil
-        </a>
-        <a class="navbar-item" routerLink="centers"><i class="mr-2 fa-solid fa-hospital"></i> Liste des centres</a>
-        <a class="navbar-item" routerLink="patients"><i class="mr-2 fa-solid fa-hospital-user"></i> Liste des patients</a>
-        <a class="navbar-item" *ngIf="showAdminBoard" routerLink="admin"><i class="mr-2 fa-solid fa-screwdriver-wrench"></i> Administration</a>
-        <a class="navbar-item" *ngIf="showSuperadminBoard" routerLink="superadmin"><i class="mr-2 fa-solid fa-screwdriver-wrench"></i> Administration</a>
-      </div>
-    </div>
-    <div class="navbar-end">
-      <div class="navbar-item" *ngIf="!isLoggedIn">
-        <div class="buttons">
-          <a class="button is-link" routerLink="register">
-            <i class="mr-2 fa-solid fa-user-plus"></i> Créer mon compte
-          </a>
-          <a class="button is-link is-light" routerLink="login">
-            <i class="mr-2 fa-solid fa-right-to-bracket"></i> Connexion
-          </a>
+<p>
+  <mat-toolbar color="primary">
+    <span>
+      <a mat-button routerLink="/home" class="title">Polydoctor</a>
+    </span>
+    <section>
+      <div class="button-row">
+        <div class="flex-container">
+          <div class="button-container">
+            <button mat-mini-fab color="primary" routerLink="/home" aria-label="Accueil">
+              <mat-icon>home</mat-icon>
+            </button>
+          </div>
+          <div class="button-container">
+            <button mat-mini-fab class="cyan" routerLink="/centers" aria-label="Centres de vaccination">
+              <mat-icon>local_hospital</mat-icon>
+            </button>
+          </div>
+          <div class="button-container">
+            <button mat-mini-fab color="accent" routerLink="/patients" aria-label="Liste des patients">
+              <mat-icon>supervised_user_circle</mat-icon>
+            </button>
+          </div>
+          <div class="button-container" *ngIf="showAdminBoard">
+            <button routerLink="/admin-board" mat-mini-fab color="warn" aria-label="Admin dashboard">
+              <mat-icon>dashboard</mat-icon>
+            </button>
+          </div>
+          <div class="button-container" *ngIf="showSuperadminBoard" >
+            <button routerLink="/superadmin-board" mat-mini-fab color="warn" aria-label="Superadmin dashboard">
+              <mat-icon>dashboard</mat-icon>
+            </button>
+          </div>
+          <div class="button-container" *ngIf="showDoctorBoard" >
+            <button routerLink="/doctor-board" mat-mini-fab color="warn" aria-label="Doctor dashboard">
+              <mat-icon>dashboard</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="navbar-item has-dropdown is-hoverable" *ngIf="isLoggedIn">
-        <a class="navbar-link"><i class="mr-2 fa-solid fa-user"></i> {{ username }}</a>
-        <div class="navbar-dropdown is-right">
-          <a class="navbar-item" routerLink="profile"><i class="mr-2 fa-solid fa-user-gear"></i> Mon compte</a>
-          <a class="navbar-item" routerLink="user"><i class="mr-2 fa-solid fa-map-location-dot"></i> Mon tableau de bord</a>
-          <hr class="navbar-divider">
-          <a class="navbar-item" (click)="logout()"><i class="mr-2 fa-solid fa-right-from-bracket"></i> Déconnexion</a>
-        </div>
+    </section>
+    <span class="spacer"></span>
+    <section>
+      <div class="button-row" *ngIf="!isLoggedIn">
+        <button mat-raised-button routerLink="/login">Connexion</button>
+        <button mat-raised-button color="primary" routerLink="/register">Inscription</button>
       </div>
-    </div>
-  </nav>
+      <div class="button-row" *ngIf="isLoggedIn">
+        <button mat-raised-button routerLink="/profile">Mon profil</button>
+        <button mat-raised-button color="warn" (click)="logout()">Déconnexion</button>
+      </div>
+    </section>
+  </mat-toolbar>
+</p>
 
-  <div class="container is-fluid mt-6">
-    <router-outlet></router-outlet>
-  </div>
+<div class="container">
+  <router-outlet></router-outlet>
 </div>

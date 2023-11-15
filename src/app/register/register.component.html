@@ -1,4 +1,112 @@
-<div class="box">
+<mat-card class="padding">
+
+  <mat-card-title class="separator">Formulaire d'inscription</mat-card-title>
+
+  <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+    <table class="full-width" cellspacing="0">
+      <tr>
+        <td>   
+          <mat-form-field>
+            <mat-label>Prénom</mat-label>
+            <input matInput required placeholder="Ex: Michel" name="firstName" [(ngModel)]="form.firstName" #firstName="ngModel">
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-icon matSuffix *ngIf="firstName.errors && f.submitted">warning</mat-icon>
+            <mat-error *ngIf="firstName.errors && firstName.errors['required']">Le prénom est requis.</mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Nom de famille</mat-label>
+            <mat-icon matPrefix>perm_identity</mat-icon>
+            <input matInput required placeholder="Ex: DUPOND" name="lastName" [(ngModel)]="form.lastName" #lastName="ngModel">
+            <mat-icon matSuffix *ngIf="lastName.errors && f.submitted">warning</mat-icon>
+            <mat-error *ngIf="lastName.errors && lastName.errors['required']">Le nom de famille est requis.</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <mat-form-field>
+      <mat-label>Nom d'utilisateur</mat-label>
+      <input matInput required name="username" placeholder="Ex: micheldupond" [(ngModel)]="form.username" #username="ngModel" minlength="3"
+        maxlength="20">
+      <mat-icon matPrefix>face</mat-icon>
+      <mat-icon matSuffix *ngIf="username.errors && f.submitted">warning</mat-icon>
+      <mat-error *ngIf="username.errors && username.errors['required']">Le nom d'utilisateur est requis.</mat-error>
+      <mat-hint align="end">{{username.value.length}} / 20</mat-hint>
+  
+      <mat-error *ngIf="username.errors && username.errors['minlength']">Le nom d'utilisateur
+        doit contenir au minimum 3 caractères.
+      </mat-error>
+      <mat-error *ngIf="username.errors && username.errors['maxlength']">Le nom d'utilisateur
+        ne doit pas contenir plus de 20 caractères.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Mot de passe</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" required name="password" minlength="6" maxlength="40"
+        [(ngModel)]="form.password" #password="ngModel">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-icon matPrefix>password</mat-icon>
+      <mat-hint align="end">{{password.value.length}} / 40</mat-hint>
+      <mat-error *ngIf="password.errors && password.errors['required']">Le mot de passe est requis.</mat-error>
+      <mat-error *ngIf="password.errors && password.errors['minlength']">Le mot de passe
+        doit contenir au minimum 6 caractères.
+      </mat-error>
+      <mat-error *ngIf="password.errors && password.errors['maxlength']">Le mot de passe
+        ne doit pas contenir plus de 40 caractères.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Adressse email</mat-label>
+      <input matInput required name="email" placeholder="Ex: micheldupond@mail.com" [(ngModel)]="form.email" #email="ngModel"
+        maxlength="50" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$">
+        <mat-icon matPrefix>email</mat-icon>
+      <mat-icon matSuffix *ngIf="email.errors && f.submitted">warning</mat-icon>
+      <mat-error *ngIf="email.errors && email.errors['required']">L'adresse email est requise.</mat-error>
+      <mat-hint align="end">{{email.value.length}} / 50</mat-hint>
+  
+      <mat-error *ngIf="email.errors && email.errors['pattern']">L'adresse email n'est pas valide.</mat-error>
+      <mat-error *ngIf="email.errors && email.errors['maxlength']">L'adresse email
+        ne doit pas contenir plus de 50 caractères.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Numéro de téléphone</mat-label>
+      <input matInput required name="phone" placeholder="Ex: 123456789" [(ngModel)]="form.phone" #phone="ngModel"
+        maxlength="50" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" pattern="[0-9]{9}" maxlength="9">
+      <span matTextPrefix>+33 &nbsp;</span>
+      <mat-icon matSuffix *ngIf="phone.errors && f.submitted">warning</mat-icon>
+      <mat-error *ngIf="phone.errors && phone.errors['required']">Le numéro de téléphone est requis.</mat-error>
+      <mat-hint align="start">Ne pas entrer le premier zéro</mat-hint>
+      <mat-hint align="end">{{phone.value.length}} / 9</mat-hint>
+      <mat-error *ngIf="phone.errors && phone.errors['pattern']">Le numéro de téléphone n'est pas valide.</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="separator">Inscription</button>
+
+    <mat-card class="separator danger" *ngIf="f.submitted && isSignUpFailed">
+      <mat-card-content>Échec de l'inscription : {{ errorMessage }}</mat-card-content>
+    </mat-card>
+
+  </form>
+
+  <mat-card class="separator success" *ngIf="isSuccessful">
+    <mat-card-content>La création de votre compte a été effectuée avec succès.</mat-card-content>
+  </mat-card>
+
+</mat-card>
+
+
+
+<!--div class="box">
   <p class="title is-5">Formulaire de création de compte</p>
 </div>
 <div class="box">
@@ -149,4 +257,4 @@
   <div class="notification is-success" *ngIf="isSuccessful">
     La création de votre compte a été effectuée avec succès.
   </div>
-</div>
+</div-->

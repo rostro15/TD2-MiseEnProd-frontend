@@ -21,9 +21,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'user', component: BoardUserComponent },
-  { path: 'superadmin', component: BoardSuperadminComponent },
-  { path: 'admin', component: BoardAdminComponent },
+  { path: 'doctor-board', component: BoardUserComponent },
+  { path: 'superadmin-board', component: BoardSuperadminComponent },
+  { path: 'admin-board', component: BoardAdminComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

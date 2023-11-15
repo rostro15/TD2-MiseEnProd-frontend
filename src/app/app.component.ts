@@ -15,6 +15,7 @@ export class AppComponent {
   isLoggedIn = false;
   showAdminBoard = false;
   showSuperadminBoard = false;
+  showDoctorBoard = false;
   username?: string;
 
   eventBusSub?: Subscription;
@@ -34,6 +35,7 @@ export class AppComponent {
 
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.showSuperadminBoard = this.roles.includes('ROLE_SUPERADMIN');
+      this.showDoctorBoard = this.roles.includes("ROLE_DOCTOR")
 
       this.username = user.username;
     }

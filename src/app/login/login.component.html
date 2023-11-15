@@ -1,56 +1,51 @@
-<div class="box">
-  <p class="title is-5">Formulaire de connexion</p>
-</div>
+<mat-card class="padding">
 
-<div class="box">
+  <mat-card-title class="separator">Formulaire de connexion</mat-card-title>
+
   <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
 
-    <div class="field">
-      <label class="label" for="username">Nom d'utilisateur</label>
-      <div class="control has-icons-left has-icons-right">
-        <input class="input" type="text" placeholder="Utilisateur" name="username" [(ngModel)]="form.username" required
-          autofocus #username="ngModel" [ngClass]="{ 'is-danger': f.submitted && username.errors }">
-        <span class="icon is-small is-left">
-          <i class="fas fa-user"></i>
-        </span>
-        <span class="icon is-small is-right" *ngIf="username.errors && f.submitted">
-          <i class="fas fa-exclamation-triangle"></i>
-        </span>
-      </div>
-      <p class="help is-danger" *ngIf="username.errors && f.submitted">Le nom d'utilisateur est requis</p>
-    </div>
+    <mat-form-field>
+      <mat-label>Nom d'utilisateur</mat-label>
+      <input matInput placeholder="Ex: micheldupond" required name="username" [(ngModel)]="form.username" #username="ngModel" minlength="3" maxlength="20"> 
+      <mat-icon matPrefix>face</mat-icon>
+      <mat-icon matSuffix *ngIf="username.errors && f.submitted">warning</mat-icon>
+      <mat-hint align="end">{{username.value.length}} / 20</mat-hint>
+      <mat-error *ngIf="username.errors && username.errors['required']">Le nom d'utilisateur est requis.</mat-error>
+      <mat-error *ngIf="username.errors && username.errors['minlength']">Le nom d'utilisateur
+        doit contenir au minimum 3 caractères.
+      </mat-error>
+      <mat-error *ngIf="username.errors && username.errors['maxlength']">Le nom d'utilisateur
+        ne doit pas contenir plus de 20 caractères.
+      </mat-error>
+    </mat-form-field>
 
-    <div class="field">
-      <label class="label" for="username">Mot de passe</label>
-      <div class="control has-icons-left has-icons-right">
-        <input class="input" type="password" placeholder="Mot de passe" name="password" [(ngModel)]="form.password" required
-          minlength="6" maxlength="40" #password="ngModel" [ngClass]="{ 'is-danger': f.submitted && password.errors }">
-        <span class="icon is-small is-left">
-          <i class="fas fa-lock"></i>
-        </span>
-        <span class="icon is-small is-right" *ngIf="password.errors && f.submitted">
-          <i class="fas fa-exclamation-triangle"></i>
-        </span>
-      </div>
-      <p class="help is-danger" *ngIf="password.errors && f.submitted && password.errors['required']">Le mot de passe
-        est requis</p>
-      <p class="help is-danger" *ngIf="password.errors && f.submitted && password.errors['minlength']">Le mot de passe
-        doit contenir au minimum 6
-        caractères</p>
-      <p class="help is-danger" *ngIf="password.errors && f.submitted && password.errors['maxlength']">Le mot de passe
-        ne doit pas contenir plus de 40 caractères</p>
-    </div>
+    <mat-form-field>
+      <mat-label>Mot de passe</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" required name="password" minlength="6" maxlength="40" [(ngModel)]="form.password" #password="ngModel">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-hint align="end">{{password.value.length}} / 40</mat-hint>
+      <mat-icon matPrefix>password</mat-icon>
+      <mat-error *ngIf="password.errors && password.errors['required']">Le mot de passe est requis.</mat-error>
+      <mat-error *ngIf="password.errors && password.errors['minlength']">Le mot de passe
+        doit contenir au minimum 6 caractères.
+      </mat-error>
+      <mat-error *ngIf="password.errors && password.errors['maxlength']">Le mot de passe
+        ne doit pas contenir plus de 40 caractères.
+      </mat-error>
+    </mat-form-field>
 
-    <div class="field is-grouped is-grouped-right">
-      <div class="control">
-        <button class="button is-link">Connexion</button>
-      </div>
-    </div>
+    <button mat-raised-button color="primary" class="separator">Connexion</button>
 
-    <div class="notification is-danger" *ngIf="f.submitted && isLoginFailed">Échec de la connexion : {{ errorMessage }}</div>
+    <mat-card class="separator danger" *ngIf="f.submitted && isLoginFailed">
+      <mat-card-content>Échec de la connexion : {{ errorMessage }}</mat-card-content>
+    </mat-card>    
+
   </form>
 
-  <div class="notification is-success" *ngIf="isLoggedIn">
-    Vous êtes connecté en tant que {{ username }}.
-  </div>
-</div>
+  <mat-card class="separator success" *ngIf="isLoggedIn">
+    <mat-card-content>Vous êtes connecté en tant que : "{{ username }}"</mat-card-content>
+  </mat-card>    
+
+</mat-card>

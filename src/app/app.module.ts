@@ -20,6 +20,15 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import * as fr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field'; 
+import {MatCardModule} from '@angular/material/card'; 
+import {MatToolbarModule} from '@angular/material/toolbar'; 
+import {MatIconModule} from '@angular/material/icon'; 
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -34,16 +43,24 @@ import { registerLocaleData } from '@angular/common';
     ProfileComponent,
     BoardAdminComponent,
     BoardSuperadminComponent,
-    BoardUserComponent
+    BoardUserComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatInputModule,
   ],
-  providers: [httpInterceptorProviders, { provide: LOCALE_ID, useValue: 'fr-FR'}],
-  bootstrap: [AppComponent]
+  providers: [httpInterceptorProviders, { provide: LOCALE_ID, useValue: 'fr-FR'}, {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}],
+  bootstrap: [AppComponent],
 })
 export class AppModule { 
   constructor() {
