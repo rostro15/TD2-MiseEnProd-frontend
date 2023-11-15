@@ -1,20 +1,13 @@
-<div class="detail mt-3" *ngIf="center">
-  <div class="box">
-    <h1 class="title is-5">Centre n°{{ center.id }} | {{ center.name | uppercase }}</h1>
+<button class="separator" mat-raised-button color="primary" routerLink="/centers"><mat-icon>keyboard_backspace</mat-icon> Retour à la liste des centres</button>
 
-    <p class="subtitle is-5 mt-1">
-      Adresse : {{ center.address }}, {{ center.postalCode }}
-      {{ center.city | uppercase }}
-    </p>
-
-    <div class="buttons">
-      <button class="button is-danger" (click)="delete(center.id)">
-        Supprimer le centre
-      </button>
-
-      <button class="button is-light" routerLink="/centers">
-        Retour à la liste des centres
-      </button>
-    </div>
-  </div>
-</div>
+<mat-card class="padding" *ngIf="center">
+  <mat-card-title>Centre n°{{ center.id }} - {{ center.name }}</mat-card-title>
+  <mat-card-subtitle>
+    Adresse : {{ center.address }}, {{ center.postalCode }}
+    {{ center.city | uppercase }}
+  </mat-card-subtitle>
+  <mat-card-actions class="button-row">
+    <button mat-raised-button color="accent" ><mat-icon>today</mat-icon> Prendre un rendez-vous</button>
+    <button mat-raised-button color="warn" (click)="delete(center.id)"><mat-icon>delete_forever</mat-icon> Supprimer le centre</button>
+  </mat-card-actions>
+</mat-card>

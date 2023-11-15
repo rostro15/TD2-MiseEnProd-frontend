@@ -1,4 +1,141 @@
-<div class="box">
+<mat-card class="padding">
+  <mat-card-title class="separator">Mon compte</mat-card-title>
+
+  <mat-accordion class="separator" *ngIf="currentUser; else loggedOut">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>info</mat-icon>&nbsp; À propos de mon compte
+        </mat-panel-title>
+        <mat-panel-description>
+          Afficher les informations de mon profil
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-list>
+        <mat-list-item><div class="with-icon"><mat-icon>face</mat-icon>&nbsp; {{ currentUser.firstName }} {{ currentUser.lastName | uppercase }} - {{ "@" + currentUser.username }}</div></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><div class="with-icon"><mat-icon>contact_mail</mat-icon>&nbsp; {{ currentUser.email }}</div></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><div class="with-icon"><mat-icon>contact_phone</mat-icon>&nbsp; {{ "+33 (0)" + currentUser.phone }}</div></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item *ngFor="let role of currentUser.roles"><div class="with-icon"><mat-icon>perm_contact_calendar</mat-icon>&nbsp; {{ role }}</div></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><div class="with-icon"><mat-icon>calendar_today</mat-icon>&nbsp; Compte créé {{ currentUser.createdOn | date: 'le dd/MM/yyyy, à
+          HH:mm:ss' }}</div></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><div class="with-icon"><mat-icon>today</mat-icon>&nbsp; Dernière modification du compte {{ currentUser.lastModifiedOn | date: 'le dd/MM/yyyy, à
+          HH:mm:ss' }}</div></mat-list-item>
+      </mat-list>      
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>settings</mat-icon>&nbsp; Modifier mon profil
+        </mat-panel-title>
+        <mat-panel-description>
+          Formulaire de modification du profil
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+        <table class="full-width" cellspacing="0">
+          <tr>
+            <td>   
+              <mat-form-field>
+                <mat-label>Prénom</mat-label>
+                <input matInput placeholder="Ex: Michel" name="firstName" [(ngModel)]="form.firstName" #firstName="ngModel">
+                <mat-icon matPrefix>person</mat-icon>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <mat-label>Nom de famille</mat-label>
+                <mat-icon matPrefix>perm_identity</mat-icon>
+                <input matInput placeholder="Ex: DUPOND" name="lastName" [(ngModel)]="form.lastName" #lastName="ngModel">
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+    
+        <mat-form-field>
+          <mat-label>Nom d'utilisateur</mat-label>
+          <input matInput name="username" placeholder="Ex: micheldupond" [(ngModel)]="form.username" #username="ngModel" minlength="3"
+            maxlength="20" disabled>
+          <mat-icon matPrefix>face</mat-icon>
+          <mat-icon matSuffix>warning</mat-icon>
+          <mat-hint>Le nom d'utilisateur d'un compte ne peut pas être modifié.</mat-hint>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Mot de passe</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" name="password" minlength="6" maxlength="40"
+            [(ngModel)]="form.password" #password="ngModel">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-icon matPrefix>password</mat-icon>
+          <mat-hint align="end">{{password.value.length}} / 40</mat-hint>
+          <mat-error *ngIf="password.errors && password.errors['minlength']">Le mot de passe
+            doit contenir au minimum 6 caractères.
+          </mat-error>
+          <mat-error *ngIf="password.errors && password.errors['maxlength']">Le mot de passe
+            ne doit pas contenir plus de 40 caractères.
+          </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Adressse email</mat-label>
+          <input matInput name="email" placeholder="Ex: micheldupond@mail.com" [(ngModel)]="form.email" #email="ngModel"
+            maxlength="50" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$">
+            <mat-icon matPrefix>alternate_email</mat-icon>
+          <mat-icon matSuffix *ngIf="email.errors && f.submitted">warning</mat-icon>
+          <mat-hint align="end">{{email.value.length}} / 50</mat-hint>
+      
+          <mat-error *ngIf="email.errors && email.errors['pattern']">L'adresse email n'est pas valide.</mat-error>
+          <mat-error *ngIf="email.errors && email.errors['maxlength']">L'adresse email
+            ne doit pas contenir plus de 50 caractères.
+          </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Numéro de téléphone</mat-label>
+          <input matInput name="phone" placeholder="Ex: 123456789" [(ngModel)]="form.phone" #phone="ngModel"
+            maxlength="50" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" pattern="[0-9]{9}" maxlength="9">
+          <span matTextPrefix>+33 &nbsp;</span>
+          <mat-icon matSuffix *ngIf="phone.errors && f.submitted">warning</mat-icon>
+          <mat-hint align="start">Ne pas entrer le premier zéro.</mat-hint>
+          <mat-hint align="end">{{phone.value.length}} / 9</mat-hint>
+          <mat-error *ngIf="phone.errors && phone.errors['pattern']">Le numéro de téléphone n'est pas valide.</mat-error>
+        </mat-form-field>
+    
+        <button mat-raised-button color="primary" class="separator">Modifier</button>
+    
+        <mat-card class="separator danger" *ngIf="f.submitted && isEditProfileFailed">
+          <mat-card-content>Échec de la modification du profil : {{ errorMessage }}</mat-card-content>
+        </mat-card>
+    
+      </form>
+
+      <mat-card class="separator success" *ngIf="isSuccessful">
+        <mat-card-content>
+          La modification de votre compte a été effectuée avec succès, déconnexion de votre compte en cours...
+        </mat-card-content>
+      </mat-card>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <ng-template #loggedOut>
+    <mat-card class="separator danger">
+      <mat-card-content>Veuillez vous connecter pour accéder à cette page.</mat-card-content>
+    </mat-card>
+  </ng-template>
+
+</mat-card>
+
+<!--div class="box">
   <p class="title is-5"><i class="mr-2 fa-solid fa-user"></i> Mon compte</p>
 </div>
 
@@ -181,4 +318,4 @@
   <div class="notification is-danger">
     Veuillez vous connecter pour accéder à cette page.
   </div>
-</ng-template>
+</ng-template-->

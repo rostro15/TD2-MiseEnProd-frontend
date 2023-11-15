@@ -29,6 +29,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatListModule} from '@angular/material/list';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,9 @@ import {MatInputModule} from '@angular/material/input';
     MatDividerModule,
     MatButtonModule,
     MatInputModule,
+    MatExpansionModule,
+    MatListModule,
+    MatTableModule
   ],
   providers: [httpInterceptorProviders, { provide: LOCALE_ID, useValue: 'fr-FR'}, {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}],
   bootstrap: [AppComponent],

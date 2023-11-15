@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   isSuccessful = false;
   isEditProfileFailed = false;
   errorMessage = '';
+  hide = true;
 
   constructor(private authService: AuthService, private storageService: StorageService) { }
 

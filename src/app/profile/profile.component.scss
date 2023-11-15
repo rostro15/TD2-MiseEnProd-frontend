@@ -1,0 +1,39 @@
+.padding {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.with-icon {
+    display: flex;
+    align-items: center;
+}
+
+mat-form-field {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+mat-card-title {
+    margin-top: 15px;
+}
+
+.separator {
+    margin-bottom: 20px;
+}
+
+.danger {
+    background-color: #f44336;
+}
+
+.success {
+    background-color: #4CAF50;
+}
+
+
+.full-width {
+    width: 100%;
+}
+
+td {
+    padding-right: 8px;
+}
